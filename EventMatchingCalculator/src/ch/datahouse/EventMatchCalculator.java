@@ -1,6 +1,5 @@
 /* Copyright (C) Vitelli Gianmarco - All Rights Reserved
- * Unauthorized copying of this file, via any medium is strictly prohibited
- * Proprietary and confidential
+ *
  * Written by Vitelli Gianmarco <gianmarco.vitelli@gmail.com>, 21:05 19 Februar 2015
  * 
  * File:
