@@ -1,0 +1,3 @@
+Compile the java classes and paste this into the cmd / terminal to run it:
+
+java -jar EventMatchingCalculator.jar ./data/events.in ./data/events.out
