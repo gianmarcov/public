@@ -1,3 +1,6 @@
+/* Copyright (C) Vitelli Gianmarco - All Rights Reserved
+ * Written by Vitelli Gianmarco <gianmarco.vitelli@gmail.com>, 21:05 19 Februar 2015
+/*
 
 Lösung zur CHALLENGE EVENT MATCHING /EVENTMATCHING
 
@@ -17,23 +20,15 @@ Als Ausgabe sollen die tatsächliche gefallenen Tore (Anzahl in der ersten Zeile
 Beispiel-Eingabe (events.in)
 
 3 2
-
 G 32.1
-
 G 100.5
-
 H 60.4
-
 G 35.3
-
 H 65.4
 
 Beispiel-Ausgabe (events.out)
 
 3
-
 G 33.7
-
 H 62.9
-
 G 100.5
