@@ -3,7 +3,6 @@ Public project repository of Vitelli Gianmarco.
 All projects are under the MIT license, if you have a question, don't hesitate to ask me (gianmarco.vitelli@gmail.com).
 
 <h2>Lösung EVENT MATCHING</h2><br/>
-<br/>
 CHALLENGE 3: EVENT MATCHING<br/>
 <br/>
 Von zwei verschiedenen Live-Tickern, sind die Tore eines Eishockey-Spiels bekannt. Beide Quellen sind fehlerhaft (das heisst Tore fehlen, bzw. die Zeiten sind ungenau; es darf davon ausgegangen weren, dass keine Tore zu viel angegeben werden) und die Daten sollen ergänzend genutzt werden, um eine möglichst gute Datenqualität zu erreichen<br/>.
@@ -27,5 +26,5 @@ Beispiel-Ausgabe (events.out)<br/>
 G 33.7<br/>
 H 62.9<br/>
 G 100.5<br/>
-
+<br/>
 Copyright (C) Vitelli Gianmarco - All Rights Reserved<br/>
