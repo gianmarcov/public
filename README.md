@@ -1,6 +1,6 @@
 Public project repository of Vitelli Gianmarco.
 
-All projects are under the MIT license, if you have a question, don't hesitate to ask me (gianmarco.vitelli@gmail.com).
+All projects are under the MIT license, if you have a question, don't hesitate to ask me.
 
 <h2>Lösung EVENT MATCHING</h2><br/>
 CHALLENGE 3: EVENT MATCHING<br/>
