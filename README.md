@@ -1,6 +1,5 @@
-/* Copyright (C) Vitelli Gianmarco - All Rights Reserved
- * Written by Vitelli Gianmarco <gianmarco.vitelli@gmail.com>, 21:05 19 Februar 2015
-/*
+Copyright (C) Vitelli Gianmarco - All Rights Reserved
+Written by Vitelli Gianmarco <gianmarco.vitelli@gmail.com>, 21:05 19 Februar 2015
 
 Lösung zur CHALLENGE EVENT MATCHING /EVENTMATCHING
 
