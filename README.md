@@ -2,7 +2,7 @@ Public project repository of Vitelli Gianmarco.
 
 All projects are under the MIT license, if you have a question, don't hesitate to ask me (gianmarco.vitelli@gmail.com).
 
-<strong>Projekt Lösung zur CHALLENGE EVENT MATCHING /EVENTMATCHING</strong><br/>
+<strong><bold>Projekt</bold> Lösung zur CHALLENGE EVENT MATCHING /EVENTMATCHING</strong><br/>
 <br/>
 CHALLENGE 3: EVENT MATCHING<br/>
 <br/>
@@ -23,11 +23,11 @@ H 60.4<br/>
 G 35.3<br/>
 H 65.4<br/>
 <br/>
-Beispiel-Ausgabe (events.out)
+Beispiel-Ausgabe (events.out)<br/>
 <br/>
 3<br/>
 G 33.7<br/>
 H 62.9<br/>
 G 100.5<br/>
 
-/*Copyright (C) Vitelli Gianmarco - All Rights Reserved*/<br/>
+Copyright (C) Vitelli Gianmarco - All Rights Reserved<br/>
