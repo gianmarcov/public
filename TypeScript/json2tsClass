@@ -1,0 +1,317 @@
+function ClassEventHandler () {
+    this.clazzes = [];
+    this.clazz_stack = [];
+    this.string_stack = [];
+}
+
+ClassEventHandler.prototype = {
+    getClazzes: function() {
+        return this.clazzes;
+    },
+
+    string: function (string)  {
+        if(this.string_stack.length === 1) {
+            var property = new Property(this.string_stack.pop(),'string');
+            this.clazz_stack.last().addProperty(property);
+        } else {
+            this.string_stack.push(string);
+        }
+    },
+
+    null: function ()  {
+        //NOOP
+    },
+
+    number: function (number)  {
+        if(this.string_stack.length === 1) {
+            var property = new Property(this.string_stack.pop(),'number');
+            this.clazz_stack.last().addProperty(property);
+        }
+    },
+
+    comma: function ()  {
+        //NOOP
+    },
+
+    colon: function ()  {
+        //NOOP
+    },
+
+    boolean: function (boolean)  {
+        if(this.string_stack.length === 1) {
+            var property = new Property(this.string_stack.pop(),'boolean');
+            this.clazz_stack.last().addProperty(property);
+        }
+    },
+
+    startArray: function ()  {
+        if(this.string_stack.length === 1) {
+            var property = new Property(this.string_stack.last(),'any[]');
+            this.clazz_stack.last().addProperty(property);
+        }
+    },
+
+    endArray: function ()  {
+        //NOOP
+    },
+
+    startObject: function ()  {
+        var _clazz
+        if(this.string_stack.length === 1) {
+            _clazz = new Clazz(this.string_stack.pop());
+            this.clazz_stack.last().addSubClazz(_clazz);
+            this.clazz_stack.push(_clazz);
+            this.clazzes.push(_clazz);
+        } else {
+            _clazz = new Clazz("JSON");
+            this.clazz_stack.push(_clazz);
+            this.clazzes.push(_clazz);
+        }
+    },
+
+    endObject: function ()  {
+        this.clazz_stack.pop();
+    }
+}
+
+function Clazz (name) {
+    this.name = name;
+    this.property = [];
+    this.subclazz = [];
+}
+
+Clazz.prototype = {
+    getProperty: function () {
+        return this.property;
+    },
+
+    getName: function () {
+        return this.name;
+    },
+
+    getSubClazz: function () {
+        return this.subclazz;
+    },
+
+    addProperty: function (property)  {
+        this.property.push(property);
+    },
+
+    addSubClazz: function (clazz)  {
+        this.subclazz.push(clazz);
+    }
+}
+
+function Property (name,type) {
+    this.name = name;
+    this.type = type;
+}
+
+
+Property.prototype = {
+    getType: function () {
+        return this.type;
+    },
+
+    getName: function () {
+        return this.name;
+    },
+}
+
+Array.prototype.last = function() {
+    return this[this.length-1];
+}
+
+function EventHandler (name) {
+}
+
+EventHandler.prototype = {
+    string: function (string)  {
+        console.log("string: "+string);
+    },
+
+    null: function ()  {
+        console.log("null");
+    },
+
+    number: function (number)  {
+        console.log("number: "+ number);
+    },
+
+    comma: function ()  {
+        console.log("comma");
+    },
+
+    colon: function ()  {
+        console.log("colon");
+    },
+
+    boolean: function (boolean)  {
+        console.log("boolean: "+boolean);
+    },
+
+    startArray: function ()  {
+        console.log("start Array");
+    },
+
+    endArray: function ()  {
+        console.log("end Array");
+    },
+
+    startObject: function ()  {
+        console.log("start Object");
+    },
+
+    endObject: function ()  {
+        console.log("end Object");
+    }
+}
+
+
+/**
+ *
+ * MAIN
+ *
+ */
+var fs =require("fs");  // file system
+
+function fileread(filename){
+    var contents = fs.readFileSync(filename);
+    return contents;
+}
+
+/**
+ *
+ * JSON PARSER
+ *
+ */
+var data = fileread("policyContainer.json");
+var s = data.toString();
+var eventHandler = new ClassEventHandler();
+
+    for(var i=0,c;i<s.length;i++) {
+        c = s.charAt(i);
+        switch (c) {
+            case '"':
+            case "'":
+                for(var n=++i;n<s.length;n++) {
+                    if(c === s.charAt(n)) {
+                        eventHandler.string(s.substring(i,n));
+                        i = n;
+                        break;
+                    }
+                }
+                break;
+            case ':':
+                eventHandler.colon();
+                break;
+            case ',':
+                eventHandler.comma();
+                break;
+            case '{':
+                eventHandler.startObject();
+                break;
+            case '}':
+                eventHandler.endObject();
+                break;
+            case '[':
+                eventHandler.startArray();
+                break;
+            case ']':
+                eventHandler.endArray();
+                break;
+            case 't':
+                if( s.charAt(i+1)==='r' &&
+                    s.charAt(i+2)==='u' &&
+                    s.charAt(i+3)==='e') {
+                    eventHandler.boolean(true);
+                    i += 4;
+                }
+                break;
+            case 'f':
+                if( s.charAt(i+1)==='a' &&
+                    s.charAt(i+2)==='l' &&
+                    s.charAt(i+3)==='s' &&
+                    s.charAt(i+4)==='e' ) {
+                    eventHandler.boolean(false);
+                    i += 5;
+                }
+                break;
+            case 'n':
+                if( s.charAt(i+1)==='u' &&
+                    s.charAt(i+2)==='l' &&
+                    s.charAt(i+3)==='l') {
+                    eventHandler.boolean(true);
+                    i += 4;
+                }
+                break;
+            case '-':
+            case '0':
+            case '1':
+            case '2':
+            case '3':
+            case '4':
+            case '5':
+            case '6':
+            case '7':
+            case '8':
+            case '9':
+                for(var n=i;n<s.length;n++) {
+                    if("+-0123456789eE".indexOf(s.charAt(n)) === -1) {
+                        eventHandler.number(new Number(s.substring(i,n)));
+                        i = n;
+                        break;
+                    }
+                }
+                break;
+            case '\\':
+                if( s.charAt(i+1)==='\\') {
+                    for(var n=i;n<s.length;n++) {
+                        if('\n' === s.charAt(n)) {
+                            i = n;
+                            break;
+                        }
+                    }
+                }
+                break;
+            case '/':
+                if( s.charAt(i+1)==='/') {
+                    for(var n=i;n<s.length;n++) {
+                        if('\n' === s.charAt(n)) {
+                            i = n;
+                            break;
+                        }
+                    }
+                }
+                break;
+        }
+    }
+
+
+/**
+ *
+ * Class Generator
+ *
+ */
+var clazz_file ="";
+var clazzes = eventHandler.getClazzes();
+var properties;
+for(var i=0;i< clazzes.length;i++) {
+    properties = clazzes[i].getProperty();
+    subclazz = clazzes[i].getSubClazz();
+
+    clazz_file += "export class "+clazzes[i].getName()+" {";
+    clazz_file += "\n\rconstructor(\n\r";
+    for(var n=0;n<properties.length;n++) {
+        clazz_file += "\t\tpublic " + properties[n].getName() + ": " + properties[n].getType() + ",\n\r"
+    }
+    for(var n=0;n<subclazz.length;n++) {
+        clazz_file += "\t\tpublic " + subclazz[n].getName() + ": " + subclazz[n].getName() + ",\n\r"
+    }
+    clazz_file += "){}";
+    clazz_file += "}";
+    clazz_file += "\n\r\n\r";
+    console.log(clazz_file);
+    clazz_file ="";
+}
+
